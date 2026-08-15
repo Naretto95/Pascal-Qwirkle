@@ -1,26 +1,57 @@
-# Pascal-Qwirkle
+# Pascal Qwirkle
 
-This repository contains the source code for a Qwirkle game implemented in Pascal programming language. Qwirkle is a strategy-based game in which players place tiles with different colors and shapes on the board to form lines and score points.
+A console implementation of [Qwirkle](https://en.wikipedia.org/wiki/Qwirkle), the tile-laying board game, written in Object Pascal (Free Pascal). Two players place tiles that share a color or a shape to build lines on the board and score points — no external graphics library involved, everything renders as colored text in the terminal.
 
 ## Features
-- Implement the basic rules of Qwirkle game
-- 2 players mode
-- AI player mode
-- Scoreboard
+
+- Full Qwirkle placement and scoring rules (lines, cross-lines, and the 6-tile "Qwirkle" bonus)
+- 2-player and 4-player local hot-seat modes
+- Player vs. AI mode
+- AI vs. AI exhibition mode
+- A simple brute-force AI that tries every ordering of its hand to find the highest-scoring turn
+- Colored terminal board and hand display via the `crt` unit
+
+## Project layout
+
+The game is split into small units instead of one large file:
+
+| File | Responsibility |
+| --- | --- |
+| `Qwirkle.pas` | Program entry point and top-level menu |
+| `QwirkleTypes.pas` | Shared types (tiles, board, hand, player, coordinates) |
+| `QwirkleDeck.pas` | Draw pile creation, drawing, and exchanging tiles |
+| `QwirkleBoard.pas` | Placement rules, turn scoring, and playability checks |
+| `QwirkleDisplay.pas` | Console rendering of the board, hand, and scores |
+| `QwirkleAI.pas` | Computer player move search |
+| `QwirkleGame.pas` | Turn flow and the four game modes |
 
 ## Requirements
-- A Pascal compiler (such as Free Pascal)
-- Graphics library for Pascal (such as SDL)
 
-## Compiling and Running
-1. Clone the repository
-2. Compile the source code using your Pascal compiler
-3. Run the executable file 
+- [Free Pascal](https://www.freepascal.org/) (`fpc`), which ships the `crt` unit used for colored console output. No graphics library or other dependency is required.
 
-## Contributions
+## Building and running
 
-If you find any errors or have suggestions for improvements, please feel free to open an issue or submit a pull request.
+```bash
+fpc Qwirkle.pas
+./Qwirkle      # Qwirkle.exe on Windows
+```
+
+`fpc` automatically picks up the other units (`QwirkleTypes.pas`, `QwirkleDeck.pas`, etc.) as long as they stay in the same directory as `Qwirkle.pas`.
+
+## How to play
+
+Launch the game and choose a mode from the menu, then follow the on-screen prompts (in French) to name your players and take turns. On your turn you can:
+
+- **J**ouer — place one or more tiles from your hand onto the board
+- **E**changer — swap tiles from your hand back into the draw pile
+- **P**asser — pass your turn
+
+Tiles are placed by board coordinates, shown as the `X`/`Y` axes framing the printed grid.
+
+## Contributing
+
+Issues and pull requests are welcome.
 
 ## License
 
-This repository is licensed under the MIT License. See [LICENSE](LICENSE) for more information.
+MIT — see [LICENSE](LICENSE).
